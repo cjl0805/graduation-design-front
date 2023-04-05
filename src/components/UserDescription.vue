@@ -27,7 +27,7 @@
         </div>
         <div class="div3">
           <el-button class="button"
-            ><p class="p" @click="click3">我的消息</p></el-button
+            ><p class="p" @click="click3">我的留言</p></el-button
           >
         </div>
       </div>
@@ -213,9 +213,9 @@ export default {
 }
 .info {
   margin-top: -640px;
-  margin-left: 310px;
+  margin-left: 305px;
   text-align: center;
-  width: 1200px;
+  width: 1210px;
   height: 640px;
   border: 2px;
   background: rgba(255, 255, 255);

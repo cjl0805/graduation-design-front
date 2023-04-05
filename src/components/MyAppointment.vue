@@ -1,25 +1,34 @@
 <template>
-  <div class="div">
+  <div class="appointment">
     <br />
     <el-card
       body-style="{ padding: '0px' }"
       class="box-card"
-      v-for="item in 3"
-      :key="item"
+      v-for="item in items"
+      :key="item.id"
     >
       <el-descriptions title="预约信息">
-        <el-descriptions-item label="开始时间"
-          >2023-03-29 16:27:37</el-descriptions-item
-        >
-        <el-descriptions-item label="结束时间"
-          >2023-03-29 16:27:37</el-descriptions-item
-        >
-        <el-descriptions-item label="预约发型">前刺飞机头</el-descriptions-item>
-        <el-descriptions-item label="预约发型师">张三</el-descriptions-item>
-        <el-descriptions-item label="预约状态">预约成功</el-descriptions-item>
+        <el-descriptions-item label="预约单号">{{
+          item.appointmentId
+        }}</el-descriptions-item>
+        <el-descriptions-item label="开始时间">{{
+          item.dateBegin
+        }}</el-descriptions-item>
+        <el-descriptions-item label="结束时间">{{
+          item.dateEnd
+        }}</el-descriptions-item>
+        <el-descriptions-item label="预约发型">{{
+          item.hairstyle
+        }}</el-descriptions-item>
+        <el-descriptions-item label="预约发型师">{{
+          item.hairstylist
+        }}</el-descriptions-item>
+        <el-descriptions-item label="预约状态">{{
+          item.status
+        }}</el-descriptions-item>
       </el-descriptions>
     </el-card>
-    <br />
+    <br /><br />
     <el-pagination
       class="pagination"
       @current-change="handleCurrentChange"
@@ -38,12 +47,38 @@ export default {
       currentPage: 1,
       pageSize: 3,
       total: 4,
+      items: [],
     };
+  },
+  created() {
+    this.getPage();
   },
   methods: {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
       this.currentPage = val;
+      this.getPage();
+    },
+    getPage() {
+      this.axios({
+        method: "GET",
+        url:
+          "http://localhost:8090/graduation/design/appointmentInfo/get/" +
+          this.currentPage +
+          "/" +
+          this.pageSize,
+        params: {
+          username: window.localStorage.getItem("username"),
+        },
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.code === 200) {
+          this.items = res.data.data.records;
+          this.pageSize = res.data.data.size;
+          this.currentPage = res.data.data.current;
+          this.total = res.data.data.total;
+        }
+      });
     },
   },
 };
@@ -51,12 +86,18 @@ export default {
 
 <style>
 .box-card {
-  width: 1160px;
-  height: 160px;
-  margin-left: -38px;
+  width: 1060px;
+  height: 150px;
+  margin: 0 auto;
   margin-top: 20px;
 }
 .pagination {
   text-align: right;
+}
+.appointment {
+  margin: 0 auto;
+  text-align: center;
+  width: 90%;
+  height: 100%;
 }
 </style>
