@@ -1,12 +1,7 @@
 <template>
   <div class="appointment">
     <br />
-    <el-card
-      body-style="{ padding: '0px' }"
-      class="box-card"
-      v-for="item in items"
-      :key="item.id"
-    >
+    <el-card body-style="{ padding: '0px' }" class="box-card" v-for="item in items" :key="item.id">
       <el-descriptions title="预约信息">
         <el-descriptions-item label="预约单号">{{
           item.appointmentId
@@ -29,14 +24,8 @@
       </el-descriptions>
     </el-card>
     <br /><br />
-    <el-pagination
-      class="pagination"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-size="pageSize"
-      layout="total, prev, pager, next, jumper"
-      :total="total"
-    ></el-pagination>
+    <el-pagination class="pagination" @current-change="handleCurrentChange" :current-page="currentPage"
+      :page-size="pageSize" layout="total, prev, pager, next, jumper" :total="total"></el-pagination>
   </div>
 </template>
 

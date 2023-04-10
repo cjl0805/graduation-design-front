@@ -25,7 +25,6 @@ axios.interceptors.response.use(
       alert("登录已过期，请重新登录！");
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('username');
-      location.reload();
     }
     return res;
   }

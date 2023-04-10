@@ -142,7 +142,7 @@ export default {
       console.log("submit!");
       this.appointmentDialogForm = true;
       this.axios({
-        method: "GET",
+        method: "POST",
         url: "",
         data: this.form,
       }).then((res) => {

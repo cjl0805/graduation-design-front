@@ -83,35 +83,12 @@
     <el-dialog
       title="预约情况"
       :visible.sync="appointmentDialogForm"
-      width="40%"
+      width="30%"
       center
     >
-      <h3>排队等候人数:{{ count }}</h3>
-      <el-table :data="appointmentData">
-        <el-table-column
-          property="date"
-          label="开始时间"
-          width="150"
-        ></el-table-column>
-        <el-table-column
-          property="date"
-          label="结束时间"
-          width="150"
-        ></el-table-column>
-        <el-table-column
-          property="name"
-          label="发型师"
-          width="150"
-        ></el-table-column>
-        <el-table-column property="address" label="预约用户"></el-table-column>
-      </el-table>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="appointmentDialogForm = false"
-          >重新选取时间</el-button
-        >
-        <el-button type="primary" @click="appointmentConfirm()"
-          >确定预约</el-button
-        >
+        <el-button @click="appointmentDialogForm = false">取 消</el-button>
+        <el-button type="primary" >确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -130,8 +107,6 @@ export default {
         date2: "",
       },
       appointmentDialogForm: false,
-      count: 10,
-      appointmentData: [],
     };
   },
   created() {
@@ -140,14 +115,7 @@ export default {
   methods: {
     onSubmit() {
       console.log("submit!");
-      this.appointmentDialogForm = true;
-      this.axios({
-        method: "GET",
-        url: "",
-        data: this.form,
-      }).then((res) => {
-        console.log(res.data);
-      });
+      appointmentDialogForm = true;
     },
     load() {
       this.axios({

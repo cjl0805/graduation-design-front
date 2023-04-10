@@ -1,36 +1,19 @@
 <template>
-  <div class="appointment">
+  <div class="message">
     <br />
-    <el-card
-      body-style="{ padding: '0px' }"
-      class="box-card"
-      v-for="item in items"
-      :key="item.id"
-    >
-      <el-descriptions title="预约信息">
-        <el-descriptions-item label="预约单号">{{
-          item.appointmentId
+    <el-card class="message-card" v-for="item in items" :key="item.id">
+      <el-descriptions title="留言信息" 
+        ><el-descriptions-item label="留言内容">{{
+          item.content
         }}</el-descriptions-item>
-        <el-descriptions-item label="开始时间">{{
-          item.dateBegin
-        }}</el-descriptions-item>
-        <el-descriptions-item label="结束时间">{{
-          item.dateEnd
-        }}</el-descriptions-item>
-        <el-descriptions-item label="预约发型">{{
-          item.hairstyle
-        }}</el-descriptions-item>
-        <el-descriptions-item label="预约发型师">{{
-          item.hairstylist
-        }}</el-descriptions-item>
-        <el-descriptions-item label="预约状态">{{
-          item.status
-        }}</el-descriptions-item>
-      </el-descriptions>
+        <el-descriptions-item label="留言时间">{{
+          item.date
+        }}</el-descriptions-item></el-descriptions
+      >
     </el-card>
     <br /><br />
     <el-pagination
-      class="pagination"
+      class="pagination1"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
       :page-size="pageSize"
@@ -45,8 +28,8 @@ export default {
   data() {
     return {
       currentPage: 1,
-      pageSize: 3,
-      total: 4,
+      pageSize: 4,
+      total: 6,
       items: [],
     };
   },
@@ -63,7 +46,7 @@ export default {
       this.axios({
         method: "GET",
         url:
-          "http://localhost:8090/graduation/design/appointmentInfo/get/" +
+          "http://localhost:8090/graduation/design/messageInfo/get/" +
           this.currentPage +
           "/" +
           this.pageSize,
@@ -85,21 +68,19 @@ export default {
 </script>
 
 <style>
-.box-card {
+.message-card {
   width: 1060px;
-  height: 150px;
+  height: 100px;
   margin: 0 auto;
   margin-top: 20px;
 }
-
-.pagination {
-  text-align: right;
-}
-
-.appointment {
+.message {
   margin: 0 auto;
   text-align: center;
   width: 90%;
   height: 100%;
+}
+.pagination1 {
+  text-align: right;
 }
 </style>
