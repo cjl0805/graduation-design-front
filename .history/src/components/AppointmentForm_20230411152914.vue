@@ -105,21 +105,21 @@
       <h3>排队等候人数:{{ count }}</h3>
       <el-table :data="appointmentData">
         <el-table-column
-          property="dateBegin"
+          property="date"
           label="开始时间"
-          width="200"
+          width="150"
         ></el-table-column>
         <el-table-column
-          property="dateEnd"
+          property="date"
           label="结束时间"
-          width="200"
+          width="150"
         ></el-table-column>
         <el-table-column
-          property="hairstylist"
+          property="name"
           label="发型师"
-          width="200"
+          width="150"
         ></el-table-column>
-        <el-table-column property="username" label="预约用户"></el-table-column>
+        <el-table-column property="address" label="预约用户"></el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button @click="appointmentDialogForm = false"
@@ -165,8 +165,6 @@ export default {
         data: this.form,
       }).then((res) => {
         console.log(res.data);
-        this.appointmentData = res.data.data.data;
-        this.count = res.data.data.total;
       });
     },
     load() {

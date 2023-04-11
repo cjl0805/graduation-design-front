@@ -83,7 +83,7 @@
             placeholder="结束时间"
             v-model="form.endTime"
             :picker-options="{
-              start: '08:00',
+              start: '08:30',
               step: '00:15',
               end: '22:00',
               minTime: form.startTime,

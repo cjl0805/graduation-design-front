@@ -112,7 +112,7 @@
         <el-table-column
           property="dateEnd"
           label="结束时间"
-          width="200"
+          width="150"
         ></el-table-column>
         <el-table-column
           property="hairstylist"

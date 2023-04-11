@@ -55,41 +55,25 @@
         </div>
         <br />
         <div class="p">
-          预约日期
+          预约时间
           <el-date-picker
-            v-model="form.date"
+            v-model="form.date1"
             type="date"
             placeholder="选择日期"
             class="select3"
           >
           </el-date-picker
           ><br /><br />
-          开始时间
-          <el-time-select
+          <el-time-picker
             class="select4"
-            placeholder="起始时间"
-            v-model="form.startTime"
-            :picker-options="{
-              start: '08:00',
-              step: '00:15',
-              end: '22:00',
-            }"
+            is-range
+            v-model="form.date2"
+            range-separator="至"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            placeholder="选择时间范围"
           >
-          </el-time-select>
-          <br /><br />
-          结束时间
-          <el-time-select
-            class="select4"
-            placeholder="结束时间"
-            v-model="form.endTime"
-            :picker-options="{
-              start: '08:00',
-              step: '00:15',
-              end: '22:00',
-              minTime: form.startTime,
-            }"
-          >
-          </el-time-select>
+          </el-time-picker>
         </div>
         <br /></el-form
       ><br /><el-button type="primary" @click="onSubmit"
@@ -105,21 +89,21 @@
       <h3>排队等候人数:{{ count }}</h3>
       <el-table :data="appointmentData">
         <el-table-column
-          property="dateBegin"
+          property="date"
           label="开始时间"
-          width="200"
+          width="150"
         ></el-table-column>
         <el-table-column
-          property="dateEnd"
+          property="date"
           label="结束时间"
-          width="200"
+          width="150"
         ></el-table-column>
         <el-table-column
-          property="hairstylist"
+          property="name"
           label="发型师"
-          width="200"
+          width="150"
         ></el-table-column>
-        <el-table-column property="username" label="预约用户"></el-table-column>
+        <el-table-column property="address" label="预约用户"></el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button @click="appointmentDialogForm = false"
@@ -142,10 +126,8 @@ export default {
       form: {
         hairstyle: "",
         stylist: "",
-        date: "",
+        date1: "",
         date2: "",
-        startTime: "",
-        endTime: "",
       },
       appointmentDialogForm: false,
       count: 10,
@@ -160,13 +142,11 @@ export default {
       console.log("submit!");
       this.appointmentDialogForm = true;
       this.axios({
-        method: "POST",
+        method: "GET",
         url: "http://localhost:8090/graduation/design/appointmentInfo/list",
         data: this.form,
       }).then((res) => {
         console.log(res.data);
-        this.appointmentData = res.data.data.data;
-        this.count = res.data.data.total;
       });
     },
     load() {
@@ -228,13 +208,13 @@ export default {
   margin-left: 60px;
 }
 .select2 {
-  margin-left: 40px;
+  margin-left: 44px;
 }
 .select3 {
   margin-left: 60px;
 }
 .select4 {
-  margin-left: 60px;
+  margin-left: 0px;
 }
 .option {
   height: 65px;
