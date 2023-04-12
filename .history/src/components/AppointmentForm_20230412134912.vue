@@ -133,7 +133,6 @@ export default {
         stylist: "",
         date: "",
         time: "",
-        username: window.localStorage.getItem("username"),
       },
       appointmentDialogForm: false,
       count: 0,
@@ -221,18 +220,6 @@ export default {
       if (this.count === 4) {
         alert("当前时间预约人数已满，请重新选取时间");
       } else {
-        this.axios({
-          method: "POST",
-          url: "http://localhost:8090/graduation/design/appointmentInfo/save",
-          data: this.form,
-        }).then((result) => {
-          console.log(result.data);
-          if (result.data.code === 200) {
-            alert("预约成功！");
-          } else {
-            alert(result.data.message);
-          }
-        });
       }
     },
   },

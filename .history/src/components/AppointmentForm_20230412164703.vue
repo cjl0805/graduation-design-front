@@ -229,8 +229,6 @@ export default {
           console.log(result.data);
           if (result.data.code === 200) {
             alert("预约成功！");
-          } else {
-            alert(result.data.message);
           }
         });
       }

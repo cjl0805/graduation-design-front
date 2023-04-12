@@ -78,9 +78,8 @@
           </el-time-select>
           <br /><br />
         </div>
-        （提醒：每个时间段预约人数最多为 4 人）
-        <br
-      /></el-form>
+        <br />（提醒：每个时间段预约人数最多为4人）</el-form
+      >
       <br /><el-button type="primary" @click="onSubmit"
         >查看预约情况</el-button
       ></el-card
@@ -91,8 +90,8 @@
       width="40%"
       center
     >
-      <h3>该发型师在该时段预约人数:{{ count }}</h3>
-      <el-table :data="appointmentData" v-if="isTableVisible">
+      <h3>排队等候人数:{{ count }}</h3>
+      <el-table :data="appointmentData">
         <el-table-column
           property="date"
           label="预约日期"
@@ -132,13 +131,12 @@ export default {
         hairstyle: "",
         stylist: "",
         date: "",
+        date2: "",
         time: "",
-        username: window.localStorage.getItem("username"),
       },
       appointmentDialogForm: false,
-      count: 0,
+      count: 10,
       appointmentData: [],
-      isTableVisible: true,
     };
   },
   created() {
@@ -146,34 +144,16 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.form.hairstyle === "") {
-        alert("请选择发型");
-      } else if (this.form.stylist === "") {
-        alert("请选择发型师");
-      } else if (this.form.date === "") {
-        alert("请选择预约日期");
-      } else if (this.form.time === "") {
-        alert("请选择预约时间");
-      } else {
-        this.axios({
-          method: "POST",
-          url: "http://localhost:8090/graduation/design/appointmentInfo/list",
-          data: this.form,
-        }).then((res) => {
-          console.log(res.data);
-          if (res.data.code === 200) {
-            if (res.data.data.total === 0) {
-              this.isTableVisible = false;
-            } else {
-              this.appointmentData = res.data.data.data;
-              this.count = res.data.data.total;
-            }
-            this.appointmentDialogForm = true;
-          } else {
-            alert(res.data.message);
-          }
-        });
-      }
+      this.appointmentDialogForm = true;
+      this.axios({
+        method: "POST",
+        url: "http://localhost:8090/graduation/design/appointmentInfo/list",
+        data: this.form,
+      }).then((res) => {
+        console.log(res.data);
+        this.appointmentData = res.data.data.data;
+        this.count = res.data.data.total;
+      });
     },
     load() {
       this.axios({
@@ -216,24 +196,6 @@ export default {
         console.log(result.data);
         this.stylists = result.data.data;
       });
-    },
-    appointmentConfirm() {
-      if (this.count === 4) {
-        alert("当前时间预约人数已满，请重新选取时间");
-      } else {
-        this.axios({
-          method: "POST",
-          url: "http://localhost:8090/graduation/design/appointmentInfo/save",
-          data: this.form,
-        }).then((result) => {
-          console.log(result.data);
-          if (result.data.code === 200) {
-            alert("预约成功！");
-          } else {
-            alert(result.data.message);
-          }
-        });
-      }
     },
   },
 };

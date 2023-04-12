@@ -92,7 +92,7 @@
       center
     >
       <h3>该发型师在该时段预约人数:{{ count }}</h3>
-      <el-table :data="appointmentData" v-if="isTableVisible">
+      <el-table :data="appointmentData">
         <el-table-column
           property="date"
           label="预约日期"
@@ -133,12 +133,10 @@ export default {
         stylist: "",
         date: "",
         time: "",
-        username: window.localStorage.getItem("username"),
       },
       appointmentDialogForm: false,
       count: 0,
       appointmentData: [],
-      isTableVisible: true,
     };
   },
   created() {
@@ -163,7 +161,7 @@ export default {
           console.log(res.data);
           if (res.data.code === 200) {
             if (res.data.data.total === 0) {
-              this.isTableVisible = false;
+              this.appointmentData = "您当前的预约在第一顺位";
             } else {
               this.appointmentData = res.data.data.data;
               this.count = res.data.data.total;
@@ -221,18 +219,6 @@ export default {
       if (this.count === 4) {
         alert("当前时间预约人数已满，请重新选取时间");
       } else {
-        this.axios({
-          method: "POST",
-          url: "http://localhost:8090/graduation/design/appointmentInfo/save",
-          data: this.form,
-        }).then((result) => {
-          console.log(result.data);
-          if (result.data.code === 200) {
-            alert("预约成功！");
-          } else {
-            alert(result.data.message);
-          }
-        });
       }
     },
   },

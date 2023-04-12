@@ -91,8 +91,8 @@
       width="40%"
       center
     >
-      <h3>该发型师在该时段预约人数:{{ count }}</h3>
-      <el-table :data="appointmentData" v-if="isTableVisible">
+      <h3>该时段预约人数:{{ count }}</h3>
+      <el-table :data="appointmentData">
         <el-table-column
           property="date"
           label="预约日期"
@@ -133,12 +133,10 @@ export default {
         stylist: "",
         date: "",
         time: "",
-        username: window.localStorage.getItem("username"),
       },
       appointmentDialogForm: false,
       count: 0,
       appointmentData: [],
-      isTableVisible: true,
     };
   },
   created() {
@@ -146,13 +144,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.form.hairstyle === "") {
+      if (this.form.hairstyle === null) {
         alert("请选择发型");
-      } else if (this.form.stylist === "") {
+      } else if (this.form.stylist === null) {
         alert("请选择发型师");
-      } else if (this.form.date === "") {
+      } else if (this.form.date === null) {
         alert("请选择预约日期");
-      } else if (this.form.time === "") {
+      } else if (this.form.time === null) {
         alert("请选择预约时间");
       } else {
         this.axios({
@@ -162,13 +160,9 @@ export default {
         }).then((res) => {
           console.log(res.data);
           if (res.data.code === 200) {
-            if (res.data.data.total === 0) {
-              this.isTableVisible = false;
-            } else {
-              this.appointmentData = res.data.data.data;
-              this.count = res.data.data.total;
-            }
             this.appointmentDialogForm = true;
+            this.appointmentData = res.data.data.data;
+            this.count = res.data.data.total;
           } else {
             alert(res.data.message);
           }
@@ -220,19 +214,6 @@ export default {
     appointmentConfirm() {
       if (this.count === 4) {
         alert("当前时间预约人数已满，请重新选取时间");
-      } else {
-        this.axios({
-          method: "POST",
-          url: "http://localhost:8090/graduation/design/appointmentInfo/save",
-          data: this.form,
-        }).then((result) => {
-          console.log(result.data);
-          if (result.data.code === 200) {
-            alert("预约成功！");
-          } else {
-            alert(result.data.message);
-          }
-        });
       }
     },
   },
