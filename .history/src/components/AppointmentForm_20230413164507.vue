@@ -112,7 +112,25 @@
         <el-table-column property="username" label="预约用户"></el-table-column>
       </el-table>
       <br /><br />
-      <h3 v-if="isTableVisible2">您该天的预约情况：</h3>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="appointmentDialogForm = false"
+          >重新选取时间</el-button
+        >
+        <el-button type="primary" @click="appointmentConfirm()"
+          >确定预约</el-button
+        >
+      </span>
+    </el-dialog>
+    <el-card class="dicountCard">
+      <h2>惊喜折扣</h2>
+      <el-table :data="discountData" style="margin: 0 auto">
+        <el-table-column prop="date" label="折扣力度"> </el-table-column>
+        <el-table-column prop="time" label="折扣发型"> </el-table-column>
+      </el-table>
+    </el-card>
+    <el-card>
+      <h3 v-if="isTableVisible2">您今日的预约情况：</h3>
       <h3 v-else>您今天还未预约</h3>
       <el-table :data="tableData" v-if="isTableVisible2">
         <el-table-column prop="date" label="预约日期" width="150">
@@ -134,22 +152,6 @@
             </el-button>
           </template>
         </el-table-column>
-      </el-table>
-
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="appointmentDialogForm = false"
-          >重新选取时间</el-button
-        >
-        <el-button type="primary" @click="appointmentConfirm()"
-          >确定预约</el-button
-        >
-      </span>
-    </el-dialog>
-    <el-card class="dicountCard">
-      <h2>惊喜折扣</h2>
-      <el-table :data="discountData" style="margin: 0 auto">
-        <el-table-column prop="date" label="折扣力度"> </el-table-column>
-        <el-table-column prop="time" label="折扣发型"> </el-table-column>
       </el-table>
     </el-card>
   </div>

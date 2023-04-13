@@ -112,7 +112,7 @@
         <el-table-column property="username" label="预约用户"></el-table-column>
       </el-table>
       <br /><br />
-      <h3 v-if="isTableVisible2">您该天的预约情况：</h3>
+      <h3 v-if="isTableVisible2">您今天的预约情况：</h3>
       <h3 v-else>您今天还未预约</h3>
       <el-table :data="tableData" v-if="isTableVisible2">
         <el-table-column prop="date" label="预约日期" width="150">

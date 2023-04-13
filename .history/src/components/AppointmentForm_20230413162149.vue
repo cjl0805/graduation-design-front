@@ -91,8 +91,8 @@
       width="40%"
       center
     >
-      <h3 v-if="isTableVisible">该发型师在当前时段预约人数:{{ count }}</h3>
-      <h3 v-else>您当前排在第 1 位 , 无需等待</h3>
+      <h3>该发型师在当前时段预约人数:{{ count }}</h3>
+      <h3>您当前排在第 {{ count + 1 }} 位</h3>
       <el-table :data="appointmentData" v-if="isTableVisible">
         <el-table-column
           property="date"
@@ -111,10 +111,8 @@
         ></el-table-column>
         <el-table-column property="username" label="预约用户"></el-table-column>
       </el-table>
-      <br /><br />
-      <h3 v-if="isTableVisible2">您该天的预约情况：</h3>
-      <h3 v-else>您今天还未预约</h3>
-      <el-table :data="tableData" v-if="isTableVisible2">
+      <h3>您今天的预约情况：</h3>
+      <el-table :data="tableData">
         <el-table-column prop="date" label="预约日期" width="150">
         </el-table-column>
         <el-table-column prop="time" label="预约时间" width="150">
@@ -147,9 +145,11 @@
     </el-dialog>
     <el-card class="dicountCard">
       <h2>惊喜折扣</h2>
-      <el-table :data="discountData" style="margin: 0 auto">
-        <el-table-column prop="date" label="折扣力度"> </el-table-column>
-        <el-table-column prop="time" label="折扣发型"> </el-table-column>
+      <el-table :data="discountData" style="text-align: center">
+        <el-table-column prop="date" label="折扣力度" width="150">
+        </el-table-column>
+        <el-table-column prop="time" label="折扣发型" width="150">
+        </el-table-column>
       </el-table>
     </el-card>
   </div>
@@ -172,9 +172,7 @@ export default {
       count: 0,
       appointmentData: [],
       isTableVisible: true,
-      isTableVisible2: true,
       tableData: [],
-      discountData: [],
     };
   },
   created() {
@@ -203,25 +201,6 @@ export default {
             } else {
               this.appointmentData = res.data.data.data;
               this.count = res.data.data.total;
-            }
-            this.appointmentDialogForm = true;
-          } else {
-            alert(res.data.message);
-          }
-        });
-        this.axios({
-          method: "GET",
-          url: "http://localhost:8090/graduation/design/appointmentInfo/get/byUsername",
-          params: {
-            username: window.localStorage.getItem("username"),
-          },
-        }).then((res) => {
-          console.log(res.data);
-          if (res.data.code === 200) {
-            if (res.data.data === null) {
-              this.isTableVisible2 = false;
-            } else {
-              this.tableData = res.data.data;
             }
             this.appointmentDialogForm = true;
           } else {
