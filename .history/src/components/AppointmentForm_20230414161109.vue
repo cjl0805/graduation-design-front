@@ -368,7 +368,7 @@ export default {
 }
 
 .div1 {
-  margin-left: 60px;
+  margin-left: 20px;
 }
 .div2 {
   position: absolute;
@@ -378,5 +378,7 @@ export default {
 }
 .pagination {
   text-align: center;
+  bottom: 0;
+  line-height: var(--footer-height);
 }
 </style>

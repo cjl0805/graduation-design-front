@@ -2,7 +2,7 @@
   <div class="PersonalInfo">
     <NavigationBar></NavigationBar>
     <br /><br /><br /><br />
-    <UserDescription v-if="role == 3"></UserDescription>
+    <UserDescription v-if="role==3"></UserDescription>
     <HairStylistInfo v-else></HairStylistInfo>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
     RotationChart,
     NavigationBar,
     UserDescription,
-    HairStylistInfo,
+    HairStylistInfo
   },
   data() {
     return {
@@ -39,7 +39,6 @@ export default {
         },
       }).then((res) => {
         console.log(res.data.data);
-        this.role = res.data.data;
       });
     },
   },

@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       appointmentId: window.localStorage.getItem("appointmentId"),
-      pay:window.localStorage.getItem('discount')/10*50,
+      pay:window.localStorage.getItem('discount')*50/10,
     };
   },
   mounted() {

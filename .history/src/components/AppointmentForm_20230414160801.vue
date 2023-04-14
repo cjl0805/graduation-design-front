@@ -362,13 +362,12 @@ export default {
   box-sizing: border-box;
 }
 .dicountCard {
-  height: 500px;
   text-align: center;
   width: 420px;
 }
 
 .div1 {
-  margin-left: 60px;
+  margin-left: 20px;
 }
 .div2 {
   position: absolute;

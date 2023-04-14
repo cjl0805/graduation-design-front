@@ -8,21 +8,16 @@
       :key="item.id"
     >
       <el-descriptions title="预约信息">
+        <el-button type="text">文字按钮</el-button>
         <el-descriptions-item label="预约单号">{{
           item.appointmentId
         }}</el-descriptions-item>
         <el-descriptions-item label="预约日期">{{
           item.date
         }}</el-descriptions-item>
-        <el-descriptions-item label="预约时间"
-          >{{ item.time }}
-          <el-link
-            type="primary"
-            @click="cancel(item)"
-            style="margin-left: 60px; font-size: 15px"
-            >取消预约</el-link
-          >
-        </el-descriptions-item>
+        <el-descriptions-item label="预约时间">{{
+          item.time
+        }}</el-descriptions-item>
         <el-descriptions-item label="预约发型">{{
           item.hairstyle
         }}</el-descriptions-item>
@@ -34,7 +29,7 @@
           }}<a
             href="/pay"
             @click="gotoPay(item)"
-            style="margin-left: 40px; font-size: 15px; color: #1e1eff"
+            style="margin-left: 160px; font-size: 16px; color: #1e1eff"
             v-if="item.status == '未支付'"
             >去支付</a
           >
@@ -95,21 +90,6 @@ export default {
     },
     gotoPay(item) {
       window.localStorage.setItem("appointmentId", item.appointmentId);
-    },
-    cancel(item) {
-      this.axios({
-        method: "DELETE",
-        url: "http://localhost:8090/graduation/design/appointmentInfo/delete",
-        data: item,
-      }).then((res) => {
-        console.log(res.data);
-        if (res.data.code === 200) {
-          alert("取消成功！");
-          this.getPage();
-        } else {
-          alert(res.data.message);
-        }
-      });
     },
   },
 };

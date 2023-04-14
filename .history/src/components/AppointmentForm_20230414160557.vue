@@ -234,7 +234,7 @@ export default {
       }).then((res) => {
         console.log(res.data);
         if (res.data.code === 200) {
-          this.discountData = res.data.data.records;
+          this.items = res.data.data.records;
           this.pageSize = res.data.data.size;
           this.currentPage = res.data.data.current;
           this.total = res.data.data.total;
@@ -255,6 +255,12 @@ export default {
       }).then((result) => {
         console.log(result.data);
         this.stylists = result.data.data;
+      });
+      this.axios({
+        method: "GET",
+        url: "http://localhost:8090/graduation/design/discount/list",
+      }).then((res) => {
+        this.discountData = res.data.data;
       });
     },
     //根据选择的发型师推荐发型
@@ -331,7 +337,6 @@ export default {
 <style scoped>
 .card {
   width: 720px;
-  height: 500px;
   text-align: center;
 }
 .p {
@@ -362,13 +367,12 @@ export default {
   box-sizing: border-box;
 }
 .dicountCard {
-  height: 500px;
   text-align: center;
   width: 420px;
 }
 
 .div1 {
-  margin-left: 60px;
+  margin-left: 20px;
 }
 .div2 {
   position: absolute;

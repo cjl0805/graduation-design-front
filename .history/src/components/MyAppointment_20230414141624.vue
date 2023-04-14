@@ -18,8 +18,8 @@
           >{{ item.time }}
           <el-link
             type="primary"
-            @click="cancel(item)"
-            style="margin-left: 60px; font-size: 15px"
+            @click="cancel()"
+            style="margin-left: 60px; font-size: 16px; color: #1e1eff"
             >取消预约</el-link
           >
         </el-descriptions-item>
@@ -34,7 +34,7 @@
           }}<a
             href="/pay"
             @click="gotoPay(item)"
-            style="margin-left: 40px; font-size: 15px; color: #1e1eff"
+            style="margin-left: 40px; font-size: 16px; color: #1e1eff"
             v-if="item.status == '未支付'"
             >去支付</a
           >
@@ -95,21 +95,6 @@ export default {
     },
     gotoPay(item) {
       window.localStorage.setItem("appointmentId", item.appointmentId);
-    },
-    cancel(item) {
-      this.axios({
-        method: "DELETE",
-        url: "http://localhost:8090/graduation/design/appointmentInfo/delete",
-        data: item,
-      }).then((res) => {
-        console.log(res.data);
-        if (res.data.code === 200) {
-          alert("取消成功！");
-          this.getPage();
-        } else {
-          alert(res.data.message);
-        }
-      });
     },
   },
 };

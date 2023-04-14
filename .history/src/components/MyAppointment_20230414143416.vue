@@ -104,10 +104,10 @@ export default {
       }).then((res) => {
         console.log(res.data);
         if (res.data.code === 200) {
-          alert("取消成功！");
-          this.getPage();
-        } else {
-          alert(res.data.message);
+          this.items = res.data.data.records;
+          this.pageSize = res.data.data.size;
+          this.currentPage = res.data.data.current;
+          this.total = res.data.data.total;
         }
       });
     },

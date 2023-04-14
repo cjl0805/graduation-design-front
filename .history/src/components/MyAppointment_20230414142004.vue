@@ -16,10 +16,7 @@
         }}</el-descriptions-item>
         <el-descriptions-item label="预约时间"
           >{{ item.time }}
-          <el-link
-            type="primary"
-            @click="cancel(item)"
-            style="margin-left: 60px; font-size: 15px"
+          <el-link type="primary" @click="cancel()" style="margin-left: 60px;font-size: 15px;"
             >取消预约</el-link
           >
         </el-descriptions-item>
@@ -95,21 +92,6 @@ export default {
     },
     gotoPay(item) {
       window.localStorage.setItem("appointmentId", item.appointmentId);
-    },
-    cancel(item) {
-      this.axios({
-        method: "DELETE",
-        url: "http://localhost:8090/graduation/design/appointmentInfo/delete",
-        data: item,
-      }).then((res) => {
-        console.log(res.data);
-        if (res.data.code === 200) {
-          alert("取消成功！");
-          this.getPage();
-        } else {
-          alert(res.data.message);
-        }
-      });
     },
   },
 };

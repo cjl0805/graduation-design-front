@@ -18,16 +18,15 @@
             </template>
           </el-table-column>
         </el-table>
-        <br />
-        <el-pagination
-          class="pagination"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-size="pageSize"
-          layout="total, prev, pager, next, jumper"
-          :total="total"
-        ></el-pagination>
       </el-card>
+      <el-pagination
+        class="pagination"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="total, prev, pager, next, jumper"
+        :total="total"
+      ></el-pagination>
     </div>
     <div class="div2">
       <el-card class="card"
@@ -178,14 +177,10 @@ export default {
       tableData: [],
       discountData: [],
       discount: 10,
-      currentPage: 1,
-      pageSize: 5,
-      total: 4,
     };
   },
   created() {
     this.load();
-    this.getPage();
   },
   methods: {
     onSubmit() {
@@ -218,29 +213,6 @@ export default {
         });
       }
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-      this.currentPage = val;
-      this.getPage();
-    },
-    getPage() {
-      this.axios({
-        method: "GET",
-        url:
-          "http://localhost:8090/graduation/design/discount/get/" +
-          this.currentPage +
-          "/" +
-          this.pageSize,
-      }).then((res) => {
-        console.log(res.data);
-        if (res.data.code === 200) {
-          this.discountData = res.data.data.records;
-          this.pageSize = res.data.data.size;
-          this.currentPage = res.data.data.current;
-          this.total = res.data.data.total;
-        }
-      });
-    },
     load() {
       this.axios({
         method: "GET",
@@ -255,6 +227,12 @@ export default {
       }).then((result) => {
         console.log(result.data);
         this.stylists = result.data.data;
+      });
+      this.axios({
+        method: "GET",
+        url: "http://localhost:8090/graduation/design/discount/list",
+      }).then((res) => {
+        this.discountData = res.data.data;
       });
     },
     //根据选择的发型师推荐发型
@@ -331,7 +309,6 @@ export default {
 <style scoped>
 .card {
   width: 720px;
-  height: 500px;
   text-align: center;
 }
 .p {
@@ -362,21 +339,17 @@ export default {
   box-sizing: border-box;
 }
 .dicountCard {
-  height: 500px;
   text-align: center;
   width: 420px;
 }
 
 .div1 {
-  margin-left: 60px;
+  margin-left: 20px;
 }
 .div2 {
   position: absolute;
   margin: 0 auto;
   margin-top: -500px;
   margin-left: 600px;
-}
-.pagination {
-  text-align: center;
 }
 </style>
