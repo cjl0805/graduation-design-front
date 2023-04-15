@@ -19,7 +19,7 @@ export default {
     RotationChart,
     NavigationBar,
     UserDescription,
-    HairStylistDescription,
+    HairStylistInfo,
   },
   data() {
     return {

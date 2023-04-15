@@ -3,7 +3,7 @@
     <NavigationBar></NavigationBar>
     <br /><br /><br /><br />
     <UserDescription v-if="role == 3"></UserDescription>
-    <HairStylistDescription v-else></HairStylistDescription>
+    <HairStylistInfo v-else></HairStylistInfo>
   </div>
 </template>
 
@@ -12,14 +12,14 @@
 import RotationChart from "@/components/RotationChart.vue";
 import NavigationBar from "@/components/NavigationBar.vue";
 import UserDescription from "@/components/UserDescription.vue";
-import HairStylistDescription from "@/components/HairStylistDescription.vue";
+import HairStylistInfo from "@/components/HairStylistInfo.vue";
 export default {
   name: "PersonalInfo",
   components: {
     RotationChart,
     NavigationBar,
     UserDescription,
-    HairStylistDescription,
+    HairStylistInfo,
   },
   data() {
     return {
