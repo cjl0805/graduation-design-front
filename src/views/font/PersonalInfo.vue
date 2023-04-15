@@ -12,7 +12,7 @@
 import RotationChart from "@/components/RotationChart.vue";
 import NavigationBar from "@/components/NavigationBar.vue";
 import UserDescription from "@/components/UserDescription.vue";
-import HairStylistInfo from "@/components/HairStylistInfo.vue";
+import HairStylistInfo from "@/components/HairStylistDescription.vue";
 export default {
   name: "PersonalInfo",
   components: {
