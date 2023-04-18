@@ -1,5 +1,5 @@
 <template>
-  <div class="div12">
+  <div class="div11">
     <div style="margin-top: 15px; width: 500px; text-align: center">
       <el-input
         placeholder="请输入内容"
@@ -14,9 +14,9 @@
         ></el-button>
       </el-input>
     </div>
-    <div style="margin-top: -40px">
+    <div style="margin-top: -30px">
       <el-button type="primary" round @click="infoDialogForm = true"
-        >新增发型师</el-button
+        >新增发型</el-button
       >
     </div>
     <el-table
@@ -28,20 +28,12 @@
     >
       <el-table-column prop="id" label="编号" style="width: 25%">
       </el-table-column>
-      <el-table-column prop="username" label="用户名" style="width: 25%">
+      <el-table-column prop="hairstyle" label="发型名称" style="width: 25%">
       </el-table-column>
-      <el-table-column prop="password" label="密码" style="width: 25%">
-      </el-table-column>
-      <el-table-column prop="name" label="名字" style="width: 25%">
-      </el-table-column>
-      <el-table-column prop="skill" label="技能" style="width: 25%">
-      </el-table-column>
-      <el-table-column prop="img" label="图片" style="width: 25%">
+      <el-table-column prop="image" label="图片" style="width: 25%">
         <template slot-scope="scope">
-          <img :src="scope.row.img" width="80" height="100" />
+          <img :src="scope.row.image" width="100" height="125" />
         </template>
-      </el-table-column>
-      <el-table-column prop="description" label="描述" style="width: 25%">
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -69,7 +61,7 @@
       layout="total, prev, pager, next, jumper"
       :total="total"
     ></el-pagination>
-
+    
     <el-dialog
       title="新增信息"
       :visible.sync="infoDialogForm"
@@ -77,27 +69,12 @@
       center
     >
       <el-form :model="infoForm">
-        <el-form-item label="名字">
-          <el-input v-model="infoForm.name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="用户名">
-          <el-input v-model="infoForm.username" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="infoForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="技能">
-          <el-input v-model="infoForm.skill" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="描述">
-          <el-input
-            v-model="infoForm.description"
-            autocomplete="off"
-          ></el-input>
+        <el-form-item label="发型名称">
+          <el-input v-model="infoForm.hairstyle" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="图片">
           <el-upload
-            class="infoForm.img !== '' ? 'avatar-uploader boxCardUploadImg' : 'avatar-uploader'"
+            class="infoForm.image !== '' ? 'avatar-uploader boxCardUploadImg' : 'avatar-uploader'"
             action=""
             :http-request="upFile"
             :show-file-list="false"
@@ -105,7 +82,7 @@
             :limit="2"
           >
             <br />
-            <img v-if="infoForm.img" :src="infoForm.img" class="avatar" />
+            <img v-if="infoForm.image" :src="infoForm.image" class="avatar" />
             <el-button v-else size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
@@ -122,24 +99,12 @@
       center
     >
       <el-form :model="infoForm1">
-        <el-form-item label="名字">
-          <el-input v-model="infoForm1.name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="infoForm1.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="技能">
-          <el-input v-model="infoForm1.skill" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="描述">
-          <el-input
-            v-model="infoForm1.description"
-            autocomplete="off"
-          ></el-input>
+        <el-form-item label="发型名称">
+          <el-input v-model="infoForm1.hairstyle" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="图片">
           <el-upload
-            class="infoForm1.img !== '' ? 'avatar-uploader boxCardUploadImg' : 'avatar-uploader'"
+            class="infoForm1.image !== '' ? 'avatar-uploader boxCardUploadImg' : 'avatar-uploader'"
             action=""
             :http-request="upFile"
             :show-file-list="false"
@@ -147,7 +112,7 @@
             :limit="2"
           >
             <br />
-            <img v-if="infoForm1.img" :src="infoForm1.img" class="avatar" />
+            <img v-if="infoForm1.image" :src="infoForm1.image" class="avatar" />
             <el-button v-else size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
@@ -159,8 +124,8 @@
     </el-dialog>
   </div>
 </template>
-  
-  <script>
+
+<script>
 export default {
   data() {
     return {
@@ -168,10 +133,10 @@ export default {
       infoDialogForm: false,
       infoDialogForm1: false,
       infoForm: {
-        img: "",
+        image: "",
       },
       infoForm1: {
-        img: "",
+        image: "",
       },
       currentPage: 1,
       pageSize: 3,
@@ -192,7 +157,7 @@ export default {
       this.axios({
         method: "GET",
         url:
-          "http://localhost:8090/graduation/design/hairstylist/get/page/" +
+          "http://localhost:8090/graduation/design/hairstyle/get/" +
           this.currentPage +
           "/" +
           this.pageSize,
@@ -242,8 +207,8 @@ export default {
       }).then((res) => {
         console.log(res.data);
         if (res.data.code === 200) {
-          this.infoForm.img = res.data.data;
-          this.infoForm1.img = res.data.data;
+          this.infoForm.image = res.data.data;
+          this.infoForm1.image = res.data.data;
         } else {
           alert(res.data.message);
         }
@@ -268,7 +233,7 @@ export default {
     insert() {
       this.axios({
         method: "POST",
-        url: "http://localhost:8090/graduation/design/hairstylist/save",
+        url: "http://localhost:8090/graduation/design/hairstyle/save",
         data: this.infoForm,
       }).then((res) => {
         console.log(res.data);
@@ -285,7 +250,7 @@ export default {
       console.log(rows[index]);
       this.axios({
         method: "DELETE",
-        url: "http://localhost:8090/graduation/design/hairstylist/delete",
+        url: "http://localhost:8090/graduation/design/hairstyle/delete",
         data: rows[index],
       }).then((res) => {
         console.log(res.data);
@@ -302,7 +267,7 @@ export default {
     update() {
       this.axios({
         method: "PUT",
-        url: "http://localhost:8090/graduation/design/hairstylist/update",
+        url: "http://localhost:8090/graduation/design/hairstyle/update",
         data: this.infoForm1,
       }).then((res) => {
         console.log(res.data);
@@ -318,8 +283,8 @@ export default {
   },
 };
 </script>
-  
-  <style>
+
+<style>
 .el-table .warning-row {
   background: oldlace;
 }
@@ -332,7 +297,7 @@ export default {
   background: #f0f9eb;
 }
 
-.div12 {
+.div11 {
   margin: 0 auto;
   text-align: center;
 }
@@ -367,4 +332,3 @@ export default {
   background-color: #fff;
 }
 </style>
-  

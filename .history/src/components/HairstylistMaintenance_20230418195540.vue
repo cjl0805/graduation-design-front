@@ -125,6 +125,9 @@
         <el-form-item label="名字">
           <el-input v-model="infoForm1.name" autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="用户名">
+          <el-input v-model="infoForm1.username" autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="密码">
           <el-input v-model="infoForm1.password" autocomplete="off"></el-input>
         </el-form-item>
@@ -302,7 +305,7 @@ export default {
     update() {
       this.axios({
         method: "PUT",
-        url: "http://localhost:8090/graduation/design/hairstylist/update",
+        url: "http://localhost:8090/graduation/design/hairstyle/update",
         data: this.infoForm1,
       }).then((res) => {
         console.log(res.data);
