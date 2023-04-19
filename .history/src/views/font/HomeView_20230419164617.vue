@@ -1,0 +1,158 @@
+<template>
+  <div class="home">
+    <NavigationBar></NavigationBar>
+    <br /><br />
+    <div>
+      <div class="img">
+        <img :src="imgSrc" width="100%" alt />
+      </div>
+      <div class="div">
+        <el-card class="card"
+          ><h1 class="h1">在线美发预约</h1>
+          <h3>名称:&#32;{{ name }}</h3>
+          <h3>营业时间:&#32;{{ businessHours }}</h3>
+          <h3>地址:&#32;{{ address }}</h3>
+          <h3>联系方式:&#32;{{ phone }}</h3>
+          <h3>简介:&#32;{{ description }}</h3>
+        </el-card>
+        <el-card class="card1">
+          <el-card class="card2" v-for="item in items" :key="item.id"
+            ><el-descriptions :column="1"
+              ><el-descriptions-item label="留言内容">{{
+                item.content
+              }}</el-descriptions-item>
+              <el-descriptions-item label="留言时间">{{
+                item.date
+              }}</el-descriptions-item
+              ><el-descriptions-item label="留言用户">{{
+                item.username
+              }}</el-descriptions-item></el-descriptions
+            ></el-card
+          ><br />
+          <el-pagination
+            class="pagination2"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-size="pageSize"
+            layout="total, prev, pager, next, jumper"
+            :total="total"
+          ></el-pagination>
+        </el-card>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import NavigationBar from "@/components/NavigationBar.vue";
+export default {
+  name: "HomeView",
+  components: {
+    NavigationBar,
+  },
+  data() {
+    return {
+      imgSrc: require("../../assets/background.jpg"),
+      name: "",
+      businessHours: "",
+      address: "",
+      phone: "",
+      description: "",
+      currentPage: 1,
+      pageSize: 2,
+      total: 6,
+      items: [],
+    };
+  },
+  created() {
+    this.load();
+  },
+  methods: {
+    load() {
+      this.axios({
+        method: "GET",
+        url: "http://localhost:8090/graduation/design/hairdressing-shop-introduction/get",
+      }).then((result) => {
+        console.log(result.data);
+        if (result.data.code === 200) {
+          this.name = result.data.data[0].name;
+          this.businessHours = result.data.data[0].businessHours;
+          this.address = result.data.data[0].address;
+          this.phone = result.data.data[0].phone;
+          this.description = result.data.data[0].description;
+        } else alert("获取失败");
+      });
+      this.getPage();
+    },
+    getPage() {
+      this.axios({
+        method: "GET",
+        url:
+          " http://localhost:8090/graduation/design/messageInfo/get/page/" +
+          this.currentPage +
+          "/" +
+          this.pageSize,
+        params: {
+          query: "",
+        },
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.code === 200) {
+          this.items = res.data.data.records;
+          this.pageSize = res.data.data.size;
+          this.currentPage = res.data.data.current;
+          this.total = res.data.data.total;
+        } else alert("获取失败");
+      });
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
+      this.getPage();
+    },
+  },
+};
+</script>
+<style scoped>
+.div {
+  width: 100%;
+  height: 100%;
+}
+.card {
+  text-align: left;
+  width: 600px;
+  height: 400px;
+  position: absolute;
+  top: 25%;
+  right: 2%;
+  background: rgb(255, 255, 255, 0.8);
+  color: #000;
+}
+.img {
+  width: 100%;
+  height: 100%; /**宽高100%是为了图片铺满屏幕 */
+  z-index: -1;
+  position: fixed;
+  padding: 0px;
+  margin-left: 0px;
+}
+.card1 {
+  width: 600px;
+  height: 700px;
+  position: absolute;
+  top: 10%;
+  left: 1%;
+  background: rgb(255, 255, 255, 0.8);
+  color: #000;
+}
+.card2 {
+  width: 520px;
+  height: 130px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.pagination2 {
+  text-align: center;
+}
+</style>
