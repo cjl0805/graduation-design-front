@@ -116,7 +116,7 @@
           <p v-if="discount == 10">当前折扣：无</p>
           <p v-else style="color: red">当前折扣：{{ discount }} 折</p>
         </el-form>
-        <el-button type="primary" @click="onSubmit"
+        <br /><el-button type="primary" @click="onSubmit"
           >查看预约情况</el-button
         ></el-card
       >
@@ -377,7 +377,7 @@ export default {
 .div200 {
   position: absolute;
   margin: 0 auto;
-  margin-top: -520px;
+  margin-top: -500px;
   margin-left: 600px;
 }
 .pagination {

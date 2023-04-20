@@ -32,7 +32,7 @@
         </div>
         <div class="div3">
           <el-button class="button"
-            ><p class="p" @click="click4">我的通知</p></el-button
+            ><p class="p" @click="click3">我的通知</p></el-button
           >
         </div>
       </div>
@@ -41,7 +41,7 @@
       <UserInfo v-if="userInfo"></UserInfo>
       <myAppointment v-if="myAppointment" class="myAppointment"></myAppointment>
       <myMessage v-if="myMessage"></myMessage>
-      <MyNotice v-if="myNotice"></MyNotice>
+      <MyNotice v-if="MyNotice"></MyNotice>
     </div>
   </div>
 </template>
@@ -71,7 +71,6 @@ export default {
       userInfo: this.$route.query.userInfo,
       myAppointment: this.$route.query.myAppointment,
       myMessage: false,
-      myNotice: false,
     };
   },
   created() {
@@ -96,25 +95,16 @@ export default {
       this.userInfo = true;
       this.myAppointment = false;
       this.myMessage = false;
-      this.myNotice = false;
     },
     click2() {
       this.userInfo = false;
       this.myAppointment = true;
       this.myMessage = false;
-      this.myNotice = false;
     },
     click3() {
       this.userInfo = false;
       this.myAppointment = false;
-      this.myNotice = false;
       this.myMessage = true;
-    },
-    click4() {
-      this.userInfo = false;
-      this.myAppointment = false;
-      this.myMessage = false;
-      this.myNotice = true;
     },
     handleChange(file, fileList) {
       const fileName = file.name; // 文件名字

@@ -377,7 +377,7 @@ export default {
 .div200 {
   position: absolute;
   margin: 0 auto;
-  margin-top: -520px;
+  margin-top: -500px;
   margin-left: 600px;
 }
 .pagination {

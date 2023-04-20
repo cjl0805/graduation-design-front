@@ -68,7 +68,7 @@
             v-model="infoForm.description"
             autocomplete="off"
             type="textarea"
-            :rows="4"
+            :rows="3"
           ></el-input>
         </el-form-item>
       </el-form>

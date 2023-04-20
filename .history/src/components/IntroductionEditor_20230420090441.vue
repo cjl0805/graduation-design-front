@@ -68,7 +68,7 @@
             v-model="infoForm.description"
             autocomplete="off"
             type="textarea"
-            :rows="4"
+            :rows="3"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -135,7 +135,7 @@ export default {
 .my-label1 {
   font-size: 20px;
   margin-top: 20px;
-  margin-left: 60px;
+  margin-left: 100px;
   font-weight: bolder;
 }
 .my-content1 {
@@ -146,10 +146,5 @@ export default {
 .div31 {
   width: 1200px;
   margin: 0 auto;
-}
-.introCard{
-  width: auto;
-  height: auto;
-  margin-top: 100px;
 }
 </style>

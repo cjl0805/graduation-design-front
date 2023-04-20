@@ -41,7 +41,6 @@
       <UserInfo v-if="userInfo"></UserInfo>
       <myAppointment v-if="myAppointment" class="myAppointment"></myAppointment>
       <myMessage v-if="myMessage"></myMessage>
-      <MyNotice v-if="myNotice"></MyNotice>
     </div>
   </div>
 </template>
@@ -50,14 +49,12 @@
 import UserInfo from "./UserInfo.vue";
 import MyAppointment from "./MyAppointment.vue";
 import MyMessage from "./MyMessage.vue";
-import MyNotice from "./MyNotice.vue";
 export default {
   name: "UserDescription",
   components: {
     MyAppointment,
     MyMessage,
     UserInfo,
-    MyNotice,
   },
   data() {
     return {
@@ -71,7 +68,6 @@ export default {
       userInfo: this.$route.query.userInfo,
       myAppointment: this.$route.query.myAppointment,
       myMessage: false,
-      myNotice: false,
     };
   },
   created() {
@@ -96,25 +92,16 @@ export default {
       this.userInfo = true;
       this.myAppointment = false;
       this.myMessage = false;
-      this.myNotice = false;
     },
     click2() {
       this.userInfo = false;
       this.myAppointment = true;
       this.myMessage = false;
-      this.myNotice = false;
     },
     click3() {
       this.userInfo = false;
       this.myAppointment = false;
-      this.myNotice = false;
       this.myMessage = true;
-    },
-    click4() {
-      this.userInfo = false;
-      this.myAppointment = false;
-      this.myMessage = false;
-      this.myNotice = true;
     },
     handleChange(file, fileList) {
       const fileName = file.name; // 文件名字
