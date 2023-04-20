@@ -128,9 +128,9 @@
       width="40%"
       center
     >
-      <h3 v-if="count!=0">该发型师在当前时段预约人数:{{ count }}</h3>
+      <h3 v-if="isTableVisible">该发型师在当前时段预约人数:{{ count }}</h3>
       <h3 v-else>您当前排在第 1 位 , 无需等待</h3>
-      <el-table :data="appointmentData" v-if="count!=0">
+      <el-table :data="appointmentData" v-if="isTableVisible">
         <el-table-column
           property="date"
           label="预约日期"
@@ -177,7 +177,7 @@ export default {
       appointmentDialogForm: false,
       count: 0,
       appointmentData: [],
-      isTableVisible: false,
+      isTableVisible: true,
       isTableVisible2: true,
       tableData: [],
       discountData: [],

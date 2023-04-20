@@ -339,24 +339,20 @@ export default {
       this.infoForm.skill = "";
       this.infoForm.skill += this.checkedSkill;
       console.log(this.infoForm.skill);
-      if (this.infoForm.name === "") {
-        alert("请输入名字！");
-      } else {
-        this.axios({
-          method: "POST",
-          url: "http://localhost:8090/graduation/design/hairstylist/save",
-          data: this.infoForm,
-        }).then((res) => {
-          console.log(res.data);
-          if (res.data.code === 200) {
-            alert("添加成功！");
-            this.infoDialogForm = false;
-            this.getPage();
-          } else {
-            alert(res.data.message);
-          }
-        });
-      }
+      this.axios({
+        method: "POST",
+        url: "http://localhost:8090/graduation/design/hairstylist/save",
+        data: this.infoForm,
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.code === 200) {
+          alert("添加成功！");
+          this.infoDialogForm = false;
+          this.getPage();
+        } else {
+          alert(res.data.message);
+        }
+      });
     },
     deleteRow(index, rows) {
       console.log(rows[index]);
@@ -379,7 +375,6 @@ export default {
     update() {
       this.infoForm1.skill = "";
       this.infoForm1.skill += this.checkedSkill;
-      console.log(this.infoForm1.skill);
       this.axios({
         method: "PUT",
         url: "http://localhost:8090/graduation/design/hairstylist/update",
