@@ -151,6 +151,7 @@ export default {
             this.skill = res.data.data.skill;
             this.description = res.data.data.description;
             this.infoForm = res.data.data;
+            
           }
         })
         .catch((err) => {
@@ -186,13 +187,8 @@ export default {
     },
     updateInfo() {
       this.infoForm.skill = "";
-      var x;
-      for (x in this.checkedSkill) {
-        if (this.checkedSkill[x] != "") {
-          this.infoForm.skill += this.checkedSkill[x] + ",";
-        }
-      }
-      this.infoForm.skill=this.infoForm.skill.replace(/(.*),/, '$1');
+      this.infoForm.skill += this.checkedSkill;
+      console.log(this.infoForm);
       this.axios({
         method: "PUT",
         url: "http://localhost:8090/graduation/design/hairstylist/update/info",

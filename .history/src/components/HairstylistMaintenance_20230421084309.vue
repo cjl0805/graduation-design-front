@@ -192,11 +192,8 @@ export default {
       infoDialogForm: false,
       infoDialogForm1: false,
       infoForm: {
-        name: "",
-        username: "",
         img: "",
         skill: "",
-        password: "",
       },
       infoForm1: {
         img: "",
@@ -340,14 +337,8 @@ export default {
     //新增的确定按钮
     insert() {
       this.infoForm.skill = "";
-      var x;
-      for (x in this.checkedSkill) {
-        if (this.checkedSkill[x] != "") {
-          this.infoForm.skill += this.checkedSkill[x] + ",";
-        }
-      }
-      //利用正则表达式替换字符串中的最后一个匹配项
-      this.infoForm.skill = this.infoForm.skill.replace(/(.*),/, "$1");
+      this.infoForm.skill += this.checkedSkill;
+      console.log(this.infoForm.skill);
       if (this.infoForm.name === "") {
         alert("请输入名字！");
       } else if (this.infoForm.username === "") {
@@ -389,16 +380,10 @@ export default {
         }
       });
     },
-    //更新信息
     update() {
       this.infoForm1.skill = "";
-      var x;
-      for (x in this.checkedSkill) {
-        if (this.checkedSkill[x] != "") {
-          this.infoForm1.skill += this.checkedSkill[x] + ",";
-        }
-      }
-      this.infoForm1.skill = this.infoForm1.skill.replace(/(.*),/, "$1");
+      this.infoForm1.skill += this.checkedSkill;
+      console.log(this.infoForm1.skill);
       this.axios({
         method: "PUT",
         url: "http://localhost:8090/graduation/design/hairstylist/update",

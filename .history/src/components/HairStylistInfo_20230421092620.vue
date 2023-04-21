@@ -192,7 +192,10 @@ export default {
           this.infoForm.skill += this.checkedSkill[x] + ",";
         }
       }
+      console.log(this.infoForm.skill);
       this.infoForm.skill=this.infoForm.skill.replace(/(.*),/, '$1');
+      console.log(this.infoForm.skill);
+      console.log(this.infoForm);
       this.axios({
         method: "PUT",
         url: "http://localhost:8090/graduation/design/hairstylist/update/info",

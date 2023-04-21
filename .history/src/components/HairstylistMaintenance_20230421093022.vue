@@ -346,7 +346,6 @@ export default {
           this.infoForm.skill += this.checkedSkill[x] + ",";
         }
       }
-      //利用正则表达式替换字符串中的最后一个匹配项
       this.infoForm.skill = this.infoForm.skill.replace(/(.*),/, "$1");
       if (this.infoForm.name === "") {
         alert("请输入名字！");
